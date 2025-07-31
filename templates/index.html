@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
 {% block body %}
-
+  <div class="container">
+    <section id="chart-section">
+      <h2>Launches Per Year</h2>
+      <canvas id="launchChart"></canvas>
+    </section>
+    <section id="calendar-section">
+      <h2>Launch Calendar</h2>
+      <div id="calendar"></div>
+    </section>
+  </div>
+  <script>
+    window.chartData = {{ chart_data | tojson }};
+    window.rawData = {{ raw_data | tojson }};
+    window.upcomingLaunches = {{ upcoming_launches | tojson }};
+  </script>
+  <!-- =============== JS =============== -->
+  <script src="static/js/script.js"></script>
 {% endblock %}
