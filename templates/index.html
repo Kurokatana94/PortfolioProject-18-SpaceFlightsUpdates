@@ -3,7 +3,17 @@
 {% block body %}
   <div class="container">
     <section id="chart-section">
-      <h2>Launches Per Year</h2>
+      <h2>Space Launches to Date</h2>
+      <p>Check the space launches history from the very first one, with also updates for any upcoming</p>
+      <form id="rangeForm" style="margin: 1rem 0;">
+        <label><strong>From:</strong>
+          <input type="text" id="startMonth" required>
+        </label>
+        <label><strong>To:</strong>
+          <input type="text" id="endMonth" required>
+        </label>
+        <button type="submit">Update</button>
+      </form>
       <canvas id="launchChart"></canvas>
     </section>
     <section id="calendar-section">
