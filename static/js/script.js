@@ -28,20 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startPicker.setDate(startDate, true); // true = trigger change
     endPicker.setDate(endDate, true);
 
-    flatpickr("#startMonth", {
-        dateFormat: "Y-m",
-        altFormat: "F Y",
-        altInput: true,
-        plugins: [new monthSelectPlugin({ shorthand: true })]
-    });
-
-    flatpickr("#endMonth", {
-        dateFormat: "Y-m",
-        altFormat: "F Y",
-        altInput: true,
-        plugins: [new monthSelectPlugin({ shorthand: true })]
-    });
-
     // === Helpers ===
     function getDateRange(startStr, endStr) {
         const start = new Date(startStr + "-01");
@@ -146,13 +132,19 @@ document.addEventListener("DOMContentLoaded", () => {
         // On custom range submit
         document.getElementById('rangeForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const start = document.getElementById('startMonth').value;
-            const end = document.getElementById('endMonth').value;
-            if (start && end && start <= end) {
-                updateChart(start, end);
-            } else {
+
+            const startDateObj = startPicker.selectedDates[0];
+            const endDateObj = endPicker.selectedDates[0];
+
+            if (!startDateObj || !endDateObj || startDateObj > endDateObj) {
                 alert('Please enter a valid date range.');
+                return;
             }
+
+            const start = startDateObj.toISOString().slice(0, 7); // 'YYYY-MM'
+            const end = endDateObj.toISOString().slice(0, 7);
+
+            updateChart(start, end);
         });
     }
 
